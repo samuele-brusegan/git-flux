@@ -61,7 +61,6 @@ class _DiffLineRow extends StatelessWidget {
     final Color bgColor;
     final String leftText;
     final String rightText;
-    final Color textColor = Colors.white70;
 
     switch (line.type) {
       case DiffLineType.addition:

@@ -1,4 +1,3 @@
-import 'package:git2dart/git2dart.dart';
 
 /// Represents a failure in a Git operation.
 class GitOperationFailure implements Exception {

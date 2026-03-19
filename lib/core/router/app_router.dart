@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flux_git/widgets/app_scaffold.dart';
@@ -11,7 +10,7 @@ import 'package:flux_git/features/repository/views/repo_view.dart';
 import 'package:flux_git/features/terminal/views/terminal_view.dart';
 import 'package:flux_git/features/academy/views/academy_view.dart';
 
-final AppRouter = GoRouter(
+final appRouter = GoRouter(
   initialLocation: '/',
   redirect: (context, state) {
     final authState = context.read<AuthBloc>().state;

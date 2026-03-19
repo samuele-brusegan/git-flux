@@ -43,3 +43,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# OAuth configuration (contains client IDs - not secret but keep out of VCS)
+oauth_config.json

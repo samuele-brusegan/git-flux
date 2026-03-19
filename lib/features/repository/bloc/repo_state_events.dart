@@ -158,6 +158,23 @@ class ResolveConflict extends RepoEvent {
   List<Object?> get props => [path, useOurs];
 }
 
+class CreateRepository extends RepoEvent {
+  final String path;
+  const CreateRepository(this.path);
+
+  @override
+  List<Object?> get props => [path];
+}
+
+class CloneRepository extends RepoEvent {
+  final String url;
+  final String path;
+  const CloneRepository(this.url, this.path);
+
+  @override
+  List<Object?> get props => [url, path];
+}
+
 class RepoError extends RepoState {
   final String message;
   const RepoError(this.message);

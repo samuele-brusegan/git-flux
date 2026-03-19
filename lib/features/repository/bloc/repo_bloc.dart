@@ -1,16 +1,19 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:git2dart/git2dart.dart';
 import 'package:flux_git/data/services/git_service.dart';
+import 'package:flux_git/features/auth/bloc/auth_bloc.dart';
+import 'package:flux_git/features/auth/bloc/auth_state_events.dart';
 import 'package:flux_git/features/repository/bloc/repo_state_events.dart';
 import '../utils/graph_utils.dart';
 import '../utils/diff_utils.dart';
-import '../models/diff_model.dart';
 
 class RepoBloc extends Bloc<RepoEvent, RepoState> {
   final GitService _gitService;
+  final AuthBloc _authBloc;
 
-  RepoBloc({required GitService gitService})
+  RepoBloc({required GitService gitService, required AuthBloc authBloc})
       : _gitService = gitService,
+        _authBloc = authBloc,
         super(RepoInitial()) {
     on<LoadRepository>(_onLoadRepository);
     on<RefreshRepository>(_onRefreshRepository);
@@ -27,11 +30,15 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
     on<PushRemote>(_onPushRemote);
     on<CommitChanges>(_onCommitChanges);
     on<ResolveConflict>(_onResolveConflict);
+    on<CreateRepository>(_onCreateRepository);
+    on<CloneRepository>(_onCloneRepository);
   }
 
   Future<void> _onFetchRemote(FetchRemote event, Emitter<RepoState> emit) async {
     try {
-      await _gitService.fetch(event.remoteName);
+      final authState = _authBloc.state;
+      final currentAccount = authState is Authenticated ? authState.currentAccount : null;
+      await _gitService.fetch(event.remoteName, authAccount: currentAccount);
       add(RefreshRepository());
     } catch (e) {
       emit(RepoError("Fetch failed: $e"));
@@ -40,7 +47,9 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
 
   Future<void> _onPullRemote(PullRemote event, Emitter<RepoState> emit) async {
     try {
-      await _gitService.pull(event.remoteName, event.branchName);
+      final authState = _authBloc.state;
+      final currentAccount = authState is Authenticated ? authState.currentAccount : null;
+      await _gitService.pull(event.remoteName, event.branchName, authAccount: currentAccount);
       add(RefreshRepository());
     } catch (e) {
       emit(RepoError("Pull failed: $e"));
@@ -49,7 +58,9 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
 
   Future<void> _onPushRemote(PushRemote event, Emitter<RepoState> emit) async {
     try {
-      await _gitService.push(event.remoteName, event.branchName);
+      final authState = _authBloc.state;
+      final currentAccount = authState is Authenticated ? authState.currentAccount : null;
+      await _gitService.push(event.remoteName, event.branchName, authAccount: currentAccount);
       add(RefreshRepository());
     } catch (e) {
       emit(RepoError("Push failed: $e"));
@@ -206,6 +217,26 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
       add(RefreshRepository());
     } catch (e) {
       emit(RepoError("Failed to resolve conflict: $e"));
+    }
+  }
+
+  Future<void> _onCreateRepository(CreateRepository event, Emitter<RepoState> emit) async {
+    try {
+      await _gitService.init(event.path);
+      add(LoadRepository(event.path));
+    } catch (e) {
+      emit(RepoError("Failed to create repository: $e"));
+    }
+  }
+
+  Future<void> _onCloneRepository(CloneRepository event, Emitter<RepoState> emit) async {
+    try {
+      final authState = _authBloc.state;
+      final currentAccount = authState is Authenticated ? authState.currentAccount : null;
+      await _gitService.clone(event.url, event.path, authAccount: currentAccount);
+      add(LoadRepository(event.path));
+    } catch (e) {
+      emit(RepoError("Failed to clone repository: $e"));
     }
   }
 }

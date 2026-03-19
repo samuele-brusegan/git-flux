@@ -1,8 +1,13 @@
 import 'package:git2dart/git2dart.dart';
 import '../../core/errors/ffi_error_handler.dart';
+import 'package:flux_git/data/services/auth_service.dart';
+import 'package:flux_git/data/models/account.dart';
 
 class GitService {
+  final AuthService? _authService;
   Repository? _currentRepo;
+
+  GitService([AuthService? authService]) : _authService = authService;
 
   Repository? get currentRepo => _currentRepo;
 
@@ -28,8 +33,20 @@ class GitService {
   Future<Repository> clone(String url, String localPath, {
     String? username,
     String? password,
+    Account? authAccount,
     void Function(double)? onProgress,
   }) async {
+    // Determine credentials
+    String? effectiveUsername = username;
+    String? effectivePassword = password;
+    if (authAccount != null && _authService != null) {
+      final token = await _authService.getToken(authAccount);
+      if (token != null) {
+        effectiveUsername = token;
+        effectivePassword = '';
+      }
+    }
+
     return FfiErrorHandler.wrap(() {
       final repo = Repository.clone(
         url: url,
@@ -41,8 +58,8 @@ class GitService {
               onProgress(progress);
             }
           },
-          credentials: (username != null && password != null)
-              ? UserPass(username: username, password: password)
+          credentials: (effectiveUsername != null && effectivePassword != null)
+              ? UserPass(username: effectiveUsername, password: effectivePassword)
               : null,
         ),
       );
@@ -213,14 +230,23 @@ class GitService {
   }
 
   /// Fetch from [remoteName].
-  Future<void> fetch(String remoteName, {String? username, String? password}) async {
+  Future<void> fetch(String remoteName, {String? username, String? password, Account? authAccount}) async {
     if (_currentRepo == null) throw NoRepositoryLoadedFailure();
+    String? effectiveUsername = username;
+    String? effectivePassword = password;
+    if (authAccount != null && _authService != null) {
+      final token = await _authService.getToken(authAccount);
+      if (token != null) {
+        effectiveUsername = token;
+        effectivePassword = '';
+      }
+    }
     return FfiErrorHandler.wrap(() {
       final remote = Remote.lookup(repo: _currentRepo!, name: remoteName);
       remote.fetch(
         callbacks: Callbacks(
-          credentials: (username != null && password != null)
-              ? UserPass(username: username, password: password)
+          credentials: (effectiveUsername != null && effectivePassword != null)
+              ? UserPass(username: effectiveUsername, password: effectivePassword)
               : null,
         ),
       );
@@ -228,15 +254,24 @@ class GitService {
   }
 
   /// Push current branch to [remoteName].
-  Future<void> push(String remoteName, String branchName, {String? username, String? password}) async {
+  Future<void> push(String remoteName, String branchName, {String? username, String? password, Account? authAccount}) async {
     if (_currentRepo == null) throw NoRepositoryLoadedFailure();
+    String? effectiveUsername = username;
+    String? effectivePassword = password;
+    if (authAccount != null && _authService != null) {
+      final token = await _authService.getToken(authAccount);
+      if (token != null) {
+        effectiveUsername = token;
+        effectivePassword = '';
+      }
+    }
     return FfiErrorHandler.wrap(() {
       final remote = Remote.lookup(repo: _currentRepo!, name: remoteName);
       remote.push(
         refspecs: ['refs/heads/$branchName:refs/heads/$branchName'],
         callbacks: Callbacks(
-          credentials: (username != null && password != null)
-              ? UserPass(username: username, password: password)
+          credentials: (effectiveUsername != null && effectivePassword != null)
+              ? UserPass(username: effectiveUsername, password: effectivePassword)
               : null,
         ),
       );
@@ -244,8 +279,8 @@ class GitService {
   }
 
   /// Pull from [remoteName]. (Fetch + Merge)
-  Future<void> pull(String remoteName, String branchName, {String? username, String? password}) async {
-    await fetch(remoteName, username: username, password: password);
+  Future<void> pull(String remoteName, String branchName, {String? username, String? password, Account? authAccount}) async {
+    await fetch(remoteName, username: username, password: password, authAccount: authAccount);
     merge('$remoteName/$branchName');
   }
 

@@ -9,19 +9,27 @@ abstract class AuthEvent extends Equatable {
 
 class AppStarted extends AuthEvent {}
 
+enum AuthMethod { oauth, token }
+
 class LoginRequested extends AuthEvent {
   final AuthProvider provider;
   final String? serverUrl;
   final bool skipSslVerify;
+  final AuthMethod authMethod;
+  final String? username; // For token auth: username or PAT
+  final String? password; // For token auth: password (unused if using PAT) or empty
 
   const LoginRequested({
     required this.provider,
     this.serverUrl,
     this.skipSslVerify = false,
+    required this.authMethod,
+    this.username,
+    this.password,
   });
 
   @override
-  List<Object?> get props => [provider, serverUrl, skipSslVerify];
+  List<Object?> get props => [provider, serverUrl, skipSslVerify, authMethod, username, password];
 }
 
 class LogoutRequested extends AuthEvent {
@@ -51,6 +59,23 @@ abstract class AuthState extends Equatable {
 class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
+
+class AuthOAuthPending extends AuthState {
+  final String userCode;
+  final String verificationUri;
+  final AuthProvider provider;
+  final String? serverUrl;
+
+  const AuthOAuthPending({
+    required this.userCode,
+    required this.verificationUri,
+    required this.provider,
+    this.serverUrl,
+  });
+
+  @override
+  List<Object?> get props => [userCode, verificationUri, provider, serverUrl];
+}
 
 class Authenticated extends AuthState {
   final Account currentAccount;

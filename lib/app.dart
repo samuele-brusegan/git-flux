@@ -36,7 +36,7 @@ class _FluxGitAppState extends State<FluxGitApp> {
       dbService: widget.dbService,
     )..add(AppStarted());
     
-    _repoBloc = RepoBloc(gitService: _gitService);
+    _repoBloc = RepoBloc(gitService: _gitService, authBloc: _authBloc);
   }
 
   @override
@@ -49,7 +49,7 @@ class _FluxGitAppState extends State<FluxGitApp> {
       child: MaterialApp.router(
         title: 'FluxGit',
         theme: AppTheme.darkTheme,
-        routerConfig: AppRouter,
+        routerConfig: appRouter,
         debugShowCheckedModeBanner: false,
       ),
     );

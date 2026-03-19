@@ -1,0 +1,41 @@
+Analyzing git-client...                                         
+
+warning • Unused import: 'package:git2dart/git2dart.dart' • lib/core/errors/ffi_error_handler.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/core/router/app_router.dart:1:8 • unused_import
+   info • The variable name 'AppRouter' isn't a lowerCamelCase identifier • lib/core/router/app_router.dart:14:7 • non_constant_identifier_names
+warning • 'getByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:184:12 • experimental_member_use
+warning • 'getByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:188:12 • experimental_member_use
+warning • 'deleteByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:192:12 • experimental_member_use
+warning • 'deleteByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:196:12 • experimental_member_use
+warning • 'getAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:201:12 • experimental_member_use
+warning • 'getAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:206:12 • experimental_member_use
+warning • 'deleteAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:211:12 • experimental_member_use
+warning • 'deleteAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:216:12 • experimental_member_use
+warning • 'putByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:220:12 • experimental_member_use
+warning • 'putByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:224:12 • experimental_member_use
+warning • 'putAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:228:12 • experimental_member_use
+warning • 'putAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:235:12 • experimental_member_use
+warning • 'getByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:162:12 • experimental_member_use
+warning • 'getByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:166:12 • experimental_member_use
+warning • 'deleteByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:170:12 • experimental_member_use
+warning • 'deleteByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:174:12 • experimental_member_use
+warning • 'getAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:181:12 • experimental_member_use
+warning • 'getAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:186:12 • experimental_member_use
+warning • 'deleteAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:191:12 • experimental_member_use
+warning • 'deleteAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:196:12 • experimental_member_use
+warning • 'putByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:200:12 • experimental_member_use
+warning • 'putByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:204:12 • experimental_member_use
+warning • 'putAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:208:12 • experimental_member_use
+warning • 'putAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:215:12 • experimental_member_use
+warning • Unused import: '../models/diff_model.dart' • lib/features/repository/bloc/repo_bloc.dart:7:8 • unused_import
+warning • The value of the local variable 'textColor' isn't used • lib/features/repository/views/diff_view.dart:64:17 • unused_local_variable
+  error • Expected an identifier • lib/features/terminal/views/terminal_view_impl.dart:18:22 • missing_identifier
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/terminal/views/terminal_view_impl.dart:31:11 • extra_positional_arguments
+  error • The named parameter 'padding' isn't defined • lib/features/terminal/views/terminal_view_impl.dart:32:11 • undefined_named_parameter
+  error • Expected an identifier • lib/features/terminal/views/terminal_view_impl.dart:54:22 • missing_identifier
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/terminal/views/terminal_view_impl.dart:75:7 • extra_positional_arguments_could_be_named
+warning • Unused import: 'package:flutter/material.dart' • test/widget_test.dart:8:8 • unused_import
+warning • Unused import: 'package:flutter_test/flutter_test.dart' • test/widget_test.dart:9:8 • unused_import
+warning • Unused import: 'package:flux_git/main.dart' • test/widget_test.dart:11:8 • unused_import
+
+37 issues found. (ran in 1.4s)

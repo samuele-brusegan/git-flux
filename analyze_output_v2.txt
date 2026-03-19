@@ -1,0 +1,108 @@
+Analyzing git-client...                                         
+
+warning • Unused import: 'package:git2dart/git2dart.dart' • lib/core/errors/ffi_error_handler.dart:1:8 • unused_import
+warning • Unused import: 'package:flutter/material.dart' • lib/core/router/app_router.dart:1:8 • unused_import
+   info • The variable name 'AppRouter' isn't a lowerCamelCase identifier • lib/core/router/app_router.dart:14:7 • non_constant_identifier_names
+warning • 'getByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:184:12 • experimental_member_use
+warning • 'getByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:188:12 • experimental_member_use
+warning • 'deleteByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:192:12 • experimental_member_use
+warning • 'deleteByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:196:12 • experimental_member_use
+warning • 'getAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:201:12 • experimental_member_use
+warning • 'getAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:206:12 • experimental_member_use
+warning • 'deleteAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:211:12 • experimental_member_use
+warning • 'deleteAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:216:12 • experimental_member_use
+warning • 'putByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:220:12 • experimental_member_use
+warning • 'putByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:224:12 • experimental_member_use
+warning • 'putAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:228:12 • experimental_member_use
+warning • 'putAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/account.g.dart:235:12 • experimental_member_use
+warning • 'getByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:162:12 • experimental_member_use
+warning • 'getByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:166:12 • experimental_member_use
+warning • 'deleteByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:170:12 • experimental_member_use
+warning • 'deleteByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:174:12 • experimental_member_use
+warning • 'getAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:181:12 • experimental_member_use
+warning • 'getAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:186:12 • experimental_member_use
+warning • 'deleteAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:191:12 • experimental_member_use
+warning • 'deleteAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:196:12 • experimental_member_use
+warning • 'putByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:200:12 • experimental_member_use
+warning • 'putByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:204:12 • experimental_member_use
+warning • 'putAllByIndex' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:208:12 • experimental_member_use
+warning • 'putAllByIndexSync' is experimental and could be removed or changed at any time • lib/data/models/repository_meta.g.dart:215:12 • experimental_member_use
+  error • 1 positional argument expected by 'open', but 0 found • lib/data/services/git_service.dart:12:36 • not_enough_positional_arguments
+  error • The named parameter 'path' isn't defined • lib/data/services/git_service.dart:12:36 • undefined_named_parameter
+   info • Uses 'await' on an instance of 'Repository', which is not a subtype of 'Future' • lib/data/services/git_service.dart:34:20 • await_only_futures
+  error • The returned type 'int' isn't returnable from a 'void' function, as required by the closure's context • lib/data/services/git_service.dart:43:20 • return_of_invalid_type_from_closure
+  error • The argument type 'InvalidType Function(dynamic, dynamic, dynamic)' can't be assigned to the parameter type 'Credentials?'.  • lib/data/services/git_service.dart:45:24 • argument_type_not_assignable
+  error • The method 'userPassword' isn't defined for the type 'Credentials' • lib/data/services/git_service.dart:47:34 • undefined_method
+  error • The type 'RevWalk' used in the 'for' loop must implement 'Iterable' • lib/data/services/git_service.dart:76:25 • for_in_of_invalid_type
+  error • The returned type 'Map<String, Set<GitStatus>>' isn't returnable from a 'Map<String, GitStatus>' function, as required by the closure's context • lib/data/services/git_service.dart:87:39 • return_of_invalid_type_from_closure
+  error • The getter 'type' isn't defined for the type 'Branch' • lib/data/services/git_service.dart:141:52 • undefined_getter
+  error • Undefined name 'BranchType' • lib/data/services/git_service.dart:141:60 • undefined_identifier
+  error • The named parameter 'name' is required, but there's no corresponding argument • lib/data/services/git_service.dart:150:16 • missing_required_argument
+  error • The named parameter 'reference' isn't defined • lib/data/services/git_service.dart:150:47 • undefined_named_parameter
+  error • The getter 'oid' isn't defined for the type 'Oid' • lib/data/services/git_service.dart:184:81 • undefined_getter
+  error • The getter 'oid' isn't defined for the type 'Oid' • lib/data/services/git_service.dart:199:87 • undefined_getter
+  error • The class 'Rebase' doesn't have an unnamed constructor • lib/data/services/git_service.dart:201:22 • new_with_undefined_constructor_default
+warning • The member 'Signature' can only be used within its package • lib/data/services/git_service.dart:207:36 • invalid_use_of_internal_member
+  error • 1 positional argument expected by 'Signature.new', but 0 found • lib/data/services/git_service.dart:208:13 • not_enough_positional_arguments
+  error • The named parameter 'name' isn't defined • lib/data/services/git_service.dart:208:13 • undefined_named_parameter
+  error • The named parameter 'email' isn't defined • lib/data/services/git_service.dart:209:13 • undefined_named_parameter
+  error • The named parameter 'time' isn't defined • lib/data/services/git_service.dart:210:13 • undefined_named_parameter
+   info • Uses 'await' on an instance of 'TransferProgress', which is not a subtype of 'Future' • lib/data/services/git_service.dart:226:7 • await_only_futures
+  error • The argument type 'InvalidType Function(dynamic, dynamic, dynamic)' can't be assigned to the parameter type 'Credentials?'.  • lib/data/services/git_service.dart:228:24 • argument_type_not_assignable
+  error • The method 'userPassword' isn't defined for the type 'Credentials' • lib/data/services/git_service.dart:230:34 • undefined_method
+   info • Uses 'await' on an instance of 'void', which is not a subtype of 'Future' • lib/data/services/git_service.dart:247:7 • await_only_futures
+  error • This expression has a type of 'void' so its value can't be used • lib/data/services/git_service.dart:247:20 • use_of_void_result
+  error • The argument type 'InvalidType Function(dynamic, dynamic, dynamic)' can't be assigned to the parameter type 'Credentials?'.  • lib/data/services/git_service.dart:250:24 • argument_type_not_assignable
+  error • The method 'userPassword' isn't defined for the type 'Credentials' • lib/data/services/git_service.dart:252:34 • undefined_method
+warning • Unused import: '../models/diff_model.dart' • lib/features/repository/bloc/repo_bloc.dart:7:8 • unused_import
+  error • The named parameter 'branches' is required, but there's no corresponding argument • lib/features/repository/bloc/repo_bloc.dart:103:12 • missing_required_argument
+warning • The member 'Signature' can only be used within its package • lib/features/repository/bloc/repo_bloc.dart:185:17 • invalid_use_of_internal_member
+  error • 1 positional argument expected by 'Signature.new', but 0 found • lib/features/repository/bloc/repo_bloc.dart:186:11 • not_enough_positional_arguments
+  error • The named parameter 'name' isn't defined • lib/features/repository/bloc/repo_bloc.dart:186:11 • undefined_named_parameter
+  error • The named parameter 'email' isn't defined • lib/features/repository/bloc/repo_bloc.dart:187:11 • undefined_named_parameter
+  error • The named parameter 'time' isn't defined • lib/features/repository/bloc/repo_bloc.dart:188:11 • undefined_named_parameter
+  error • The getter 'oldLineNo' isn't defined for the type 'DiffLine' • lib/features/repository/utils/diff_utils.dart:17:34 • undefined_getter
+  error • The getter 'oldLineNo' isn't defined for the type 'DiffLine' • lib/features/repository/utils/diff_utils.dart:17:64 • undefined_getter
+  error • The getter 'newLineNo' isn't defined for the type 'DiffLine' • lib/features/repository/utils/diff_utils.dart:18:35 • undefined_getter
+  error • The getter 'newLineNo' isn't defined for the type 'DiffLine' • lib/features/repository/utils/diff_utils.dart:18:65 • undefined_getter
+  error • The getter 'oid' isn't defined for the type 'Oid' • lib/features/repository/utils/graph_utils.dart:33:39 • undefined_getter
+  error • The getter 'oid' isn't defined for the type 'Oid' • lib/features/repository/utils/graph_utils.dart:41:54 • undefined_getter
+warning • The value of the local variable 'textColor' isn't used • lib/features/repository/views/diff_view.dart:64:17 • unused_local_variable
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/repository/views/diff_view.dart:68:32 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/repository/views/diff_view.dart:73:30 • deprecated_member_use
+  error • The method '_showBranchSwitcher' isn't defined for the type 'RepoView' • lib/features/repository/views/repo_view.dart:31:36 • undefined_method
+  error • The getter 'id' isn't defined for the type 'Commit' • lib/features/repository/views/repo_view.dart:117:55 • undefined_getter
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/repository/views/repo_view.dart:118:58 • deprecated_member_use
+  error • The argument type 'GitStatus' can't be assigned to the parameter type 'Set<InvalidType>'.  • lib/features/repository/views/repo_view.dart:151:53 • argument_type_not_assignable
+warning • The declaration '_showBranchSwitcher' isn't referenced • lib/features/repository/views/repo_view.dart:168:8 • unused_element
+  error • The name 'GitStatus' isn't a type, so it can't be used as a type argument • lib/features/repository/views/repo_view.dart:217:13 • non_type_as_type_argument
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:225:25 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:225:64 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:228:32 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:228:76 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:231:32 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:231:75 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:234:32 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:234:75 • undefined_identifier
+  error • Undefined class 'Status' • lib/features/repository/views/repo_view.dart:246:24 • undefined_class
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:247:33 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:248:33 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:249:33 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:250:33 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:252:30 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:252:59 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:253:35 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:253:69 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:254:34 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:254:67 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:255:34 • undefined_identifier
+  error • Undefined name 'GitStatus' • lib/features/repository/views/repo_view.dart:255:67 • undefined_identifier
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/features/repository/widgets/commit_graph_painter.dart:19:27 • deprecated_member_use
+  error • Expected an identifier • lib/features/terminal/views/terminal_view_impl.dart:18:22 • missing_identifier
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/terminal/views/terminal_view_impl.dart:31:11 • extra_positional_arguments
+  error • The named parameter 'padding' isn't defined • lib/features/terminal/views/terminal_view_impl.dart:32:11 • undefined_named_parameter
+  error • Expected an identifier • lib/features/terminal/views/terminal_view_impl.dart:54:22 • missing_identifier
+  error • Too many positional arguments: 0 expected, but 1 found • lib/features/terminal/views/terminal_view_impl.dart:75:7 • extra_positional_arguments_could_be_named
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/widgets/app_scaffold.dart:37:61 • deprecated_member_use
+  error • The name 'MyApp' isn't a class • test/widget_test.dart:16:35 • creation_with_non_type
+

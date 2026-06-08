@@ -6,6 +6,7 @@ import 'package:flux_git/features/repository/bloc/repo_state_events.dart';
 import 'package:flux_git/features/repository/widgets/commit_graph_painter.dart';
 import 'package:flux_git/features/repository/widgets/branch_switcher.dart';
 import 'package:flux_git/features/repository/views/diff_view.dart';
+import 'package:flux_git/features/repository/views/conflict_view.dart';
 
 class RepoView extends StatelessWidget {
   final String path;
@@ -170,6 +171,10 @@ class _RepoContent extends StatelessWidget {
                                     onPressed: () => context.read<RepoBloc>().add(ResolveConflict(entry.key, useOurs: false)),
                                     child: const Text('THEIRS', style: TextStyle(fontSize: 10)),
                                   ),
+                                  TextButton(
+                                    onPressed: () => _openConflictEditor(context, entry.key),
+                                    child: const Text('RESOLVE', style: TextStyle(fontSize: 10)),
+                                  ),
                                 ],
                               ),
                             ),
@@ -202,6 +207,18 @@ void _showBranchSwitcher(BuildContext context, List<Branch> branches, String cur
     builder: (context) => BranchSwitcher(
       currentBranch: currentBranch,
       branches: branches,
+    ),
+  );
+}
+
+void _openConflictEditor(BuildContext context, String path) {
+  final repoBloc = context.read<RepoBloc>();
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => BlocProvider.value(
+        value: repoBloc,
+        child: ConflictView(path: path),
+      ),
     ),
   );
 }

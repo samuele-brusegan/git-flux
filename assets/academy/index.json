@@ -1,0 +1,23 @@
+[
+  {
+    "id": "what-is-a-commit",
+    "title": "What is a Commit?",
+    "description": "Understand snapshots, the staging area, and history.",
+    "file": "what_is_a_commit.md",
+    "minLevel": "beginner"
+  },
+  {
+    "id": "branching-strategies",
+    "title": "Branching Strategies",
+    "description": "Feature branches, trunk-based development and more.",
+    "file": "branching_strategies.md",
+    "minLevel": "intermediate"
+  },
+  {
+    "id": "merge-vs-rebase",
+    "title": "Merge vs Rebase",
+    "description": "Two ways to integrate changes and when to use each.",
+    "file": "merge_vs_rebase.md",
+    "minLevel": "advanced"
+  }
+]

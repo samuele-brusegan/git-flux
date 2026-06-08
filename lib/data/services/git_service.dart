@@ -1,7 +1,24 @@
+import 'dart:io';
+
 import 'package:git2dart/git2dart.dart';
 import '../../core/errors/ffi_error_handler.dart';
 import 'package:flux_git/data/services/auth_service.dart';
 import 'package:flux_git/data/models/account.dart';
+
+/// Snapshot of the four views of a conflicted file.
+class ConflictContents {
+  final String ancestor;
+  final String ours;
+  final String theirs;
+  final String merged;
+
+  const ConflictContents({
+    required this.ancestor,
+    required this.ours,
+    required this.theirs,
+    required this.merged,
+  });
+}
 
 class GitService {
   final AuthService? _authService;
@@ -288,6 +305,52 @@ class GitService {
   Map<String, ConflictEntry> getConflicts() {
     if (_currentRepo == null) throw NoRepositoryLoadedFailure();
     return FfiErrorHandler.wrap(() => _currentRepo!.index.conflicts, context: "getting conflicts");
+  }
+
+  /// Read the three sides of a conflicted file plus the current working-dir
+  /// content. Missing sides (e.g. added/deleted) are returned as empty strings.
+  ConflictContents getConflictContents(String path) {
+    if (_currentRepo == null) throw NoRepositoryLoadedFailure();
+    return FfiErrorHandler.wrap(() {
+      final conflict = _currentRepo!.index.conflicts[path];
+
+      String readEntry(dynamic entry) {
+        if (entry == null) return '';
+        try {
+          final blob = Blob.lookup(repo: _currentRepo!, oid: entry.oid);
+          return blob.content;
+        } catch (_) {
+          return '';
+        }
+      }
+
+      String workdir = '';
+      try {
+        final file = File('${_currentRepo!.workdir}$path');
+        if (file.existsSync()) workdir = file.readAsStringSync();
+      } catch (_) {}
+
+      return ConflictContents(
+        ancestor: readEntry(conflict?.ancestor),
+        ours: readEntry(conflict?.our),
+        theirs: readEntry(conflict?.their),
+        merged: workdir,
+      );
+    }, context: "reading conflict contents");
+  }
+
+  /// Persist the manually merged [content] for [path] and mark it resolved.
+  void saveResolvedFile(String path, String content) {
+    if (_currentRepo == null) throw NoRepositoryLoadedFailure();
+    FfiErrorHandler.wrap(() {
+      final file = File('${_currentRepo!.workdir}$path');
+      file.writeAsStringSync(content);
+
+      final index = _currentRepo!.index;
+      index.conflicts[path]?.remove();
+      index.add(path);
+      index.write();
+    }, context: "saving resolved file");
   }
 
   /// Resolve a conflict by picking a side.

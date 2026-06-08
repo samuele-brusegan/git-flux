@@ -8,6 +8,7 @@ import 'package:flux_git/data/services/git_service.dart';
 import 'package:flux_git/features/auth/bloc/auth_bloc.dart';
 import 'package:flux_git/features/auth/bloc/auth_state_events.dart';
 import 'package:flux_git/features/repository/bloc/repo_bloc.dart';
+import 'package:flux_git/features/onboarding/bloc/onboarding_cubit.dart';
 
 class FluxGitApp extends StatefulWidget {
   final DatabaseService dbService;
@@ -26,6 +27,7 @@ class FluxGitApp extends StatefulWidget {
 class _FluxGitAppState extends State<FluxGitApp> {
   late final AuthBloc _authBloc;
   late final RepoBloc _repoBloc;
+  late final OnboardingCubit _onboardingCubit;
   final _gitService = GitService();
 
   @override
@@ -37,6 +39,10 @@ class _FluxGitAppState extends State<FluxGitApp> {
     )..add(AppStarted());
     
     _repoBloc = RepoBloc(gitService: _gitService, authBloc: _authBloc);
+
+    _onboardingCubit = OnboardingCubit(dbService: widget.dbService)..load();
+    // Re-evaluate route guards once preferences finish loading.
+    _onboardingCubit.stream.listen((_) => appRouter.refresh());
   }
 
   @override
@@ -45,6 +51,7 @@ class _FluxGitAppState extends State<FluxGitApp> {
       providers: [
         BlocProvider.value(value: _authBloc),
         BlocProvider.value(value: _repoBloc),
+        BlocProvider.value(value: _onboardingCubit),
       ],
       child: MaterialApp.router(
         title: 'FluxGit',

@@ -5,9 +5,11 @@ import 'package:flux_git/features/repository/bloc/repo_bloc.dart';
 import 'package:flux_git/features/repository/bloc/repo_state_events.dart';
 import 'package:flux_git/features/auth/bloc/auth_bloc.dart';
 import 'package:flux_git/features/auth/bloc/auth_state_events.dart';
+import 'package:flux_git/features/onboarding/tutorial_targets.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final bool startTour;
+  const HomeView({super.key, this.startTour = false});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -15,6 +17,17 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   bool _isLoading = false;
+  final _tutorialKeys = TutorialKeys();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.startTour) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) showTutorial(context, _tutorialKeys);
+      });
+    }
+  }
 
   void _setLoading(bool loading) {
     if (mounted) {
@@ -104,6 +117,11 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text('FluxGit'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.help_outline),
+            tooltip: 'Show tour',
+            onPressed: () => showTutorial(context, _tutorialKeys),
+          ),
           if (currentAccount != null)
             Row(
               children: [
@@ -154,6 +172,7 @@ class _HomeViewState extends State<HomeView> {
                   Row(
                     children: [
                       _ActionCard(
+                        cardKey: _tutorialKeys.newRepo,
                         title: 'New Repository',
                         description: 'Initialize a new git repository locally',
                         icon: Icons.add_circle_outline,
@@ -161,6 +180,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       const SizedBox(width: 24),
                       _ActionCard(
+                        cardKey: _tutorialKeys.cloneRepo,
                         title: 'Clone Repository',
                         description: 'Clone from GitHub, GitLab or Gitea',
                         icon: Icons.cloud_download_outlined,
@@ -168,6 +188,7 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       const SizedBox(width: 24),
                       _ActionCard(
+                        cardKey: _tutorialKeys.openLocal,
                         title: 'Open Local',
                         description: 'Open an existing repository on your machine',
                         icon: Icons.folder_open_outlined,
@@ -182,7 +203,9 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                   const SizedBox(height: 48),
-                  Text('Recent Repositories', style: Theme.of(context).textTheme.titleLarge),
+                  Text('Recent Repositories',
+                      key: _tutorialKeys.recent,
+                      style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 16),
                   const Expanded(
                     child: Center(
@@ -209,17 +232,20 @@ class _ActionCard extends StatelessWidget {
   final String description;
   final IconData icon;
   final VoidCallback? onTap;
+  final Key? cardKey;
 
   const _ActionCard({
     required this.title,
     required this.description,
     required this.icon,
     this.onTap,
+    this.cardKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
+      key: cardKey,
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),

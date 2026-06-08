@@ -30,6 +30,7 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
     on<PushRemote>(_onPushRemote);
     on<CommitChanges>(_onCommitChanges);
     on<ResolveConflict>(_onResolveConflict);
+    on<SaveResolvedConflict>(_onSaveResolvedConflict);
     on<CreateRepository>(_onCreateRepository);
     on<CloneRepository>(_onCloneRepository);
   }
@@ -219,6 +220,19 @@ class RepoBloc extends Bloc<RepoEvent, RepoState> {
       emit(RepoError("Failed to resolve conflict: $e"));
     }
   }
+
+  Future<void> _onSaveResolvedConflict(SaveResolvedConflict event, Emitter<RepoState> emit) async {
+    try {
+      _gitService.saveResolvedFile(event.path, event.content);
+      add(RefreshRepository());
+    } catch (e) {
+      emit(RepoError("Failed to save resolution: $e"));
+    }
+  }
+
+  /// Reads the three sides of a conflicted file for the conflict editor.
+  ConflictContents conflictContents(String path) =>
+      _gitService.getConflictContents(path);
 
   Future<void> _onCreateRepository(CreateRepository event, Emitter<RepoState> emit) async {
     try {
